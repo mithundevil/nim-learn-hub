@@ -35,6 +35,13 @@ import MentorReports from "./pages/mentor/MentorReports";
 
 // Parent Pages
 import ParentDashboard from "./pages/parent/ParentDashboard";
+import ParentAttendance from "./pages/parent/ParentAttendance";
+import ParentReports from "./pages/parent/ParentReports";
+import ParentFeedback from "./pages/parent/ParentFeedback";
+
+// Admin Sub-Pages
+import AddStudent from "./pages/admin/AddStudent";
+import AddMentor from "./pages/admin/AddMentor";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +84,13 @@ const App = () => (
           
           {/* Parent Routes */}
           <Route path="/parent" element={<ParentDashboard />} />
+          <Route path="/parent/attendance" element={<ParentAttendance />} />
+          <Route path="/parent/reports" element={<ParentReports />} />
+          <Route path="/parent/feedback" element={<ParentFeedback />} />
+          
+          {/* Admin Sub-Pages */}
+          <Route path="/admin/students/add" element={<AddStudent />} />
+          <Route path="/admin/mentors/add" element={<AddMentor />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

@@ -33,7 +33,7 @@ const Students = () => {
             <h1 className="text-3xl font-bold">Students Management</h1>
             <p className="text-muted-foreground">Manage all registered students</p>
           </div>
-          <Button className="bg-accent hover:bg-accent/90">
+          <Button className="bg-accent hover:bg-accent/90" onClick={() => window.location.href = '/admin/students/add'}>
             <Plus className="mr-2 h-4 w-4" />
             Add New Student
           </Button>

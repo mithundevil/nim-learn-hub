@@ -32,7 +32,7 @@ const Mentors = () => {
             <h1 className="text-3xl font-bold">Mentors Management</h1>
             <p className="text-muted-foreground">Manage mentors and batch assignments</p>
           </div>
-          <Button className="bg-accent hover:bg-accent/90">
+          <Button className="bg-accent hover:bg-accent/90" onClick={() => window.location.href = '/admin/mentors/add'}>
             <Plus className="mr-2 h-4 w-4" />
             Add New Mentor
           </Button>
