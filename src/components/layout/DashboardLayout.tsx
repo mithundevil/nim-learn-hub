@@ -14,6 +14,7 @@ import {
   GraduationCap
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface NavItem {
   icon: React.ElementType;
@@ -30,9 +31,10 @@ interface DashboardLayoutProps {
 const DashboardLayout = ({ children, role, navItems }: DashboardLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
+  const { signOut } = useAuth();
 
-  const handleLogout = () => {
-    navigate("/login");
+  const handleLogout = async () => {
+    await signOut();
   };
 
   return (
