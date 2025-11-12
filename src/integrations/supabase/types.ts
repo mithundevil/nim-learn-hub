@@ -14,16 +14,512 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      attendance: {
+        Row: {
+          batch_id: string
+          created_at: string | null
+          date: string
+          duration_minutes: number | null
+          id: string
+          marked_by: string | null
+          status: string
+          student_id: string
+        }
+        Insert: {
+          batch_id: string
+          created_at?: string | null
+          date: string
+          duration_minutes?: number | null
+          id?: string
+          marked_by?: string | null
+          status: string
+          student_id: string
+        }
+        Update: {
+          batch_id?: string
+          created_at?: string | null
+          date?: string
+          duration_minutes?: number | null
+          id?: string
+          marked_by?: string | null
+          status?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      batches: {
+        Row: {
+          course_name: string
+          created_at: string | null
+          end_date: string | null
+          id: string
+          is_active: boolean | null
+          mentor_id: string | null
+          name: string
+          start_date: string
+        }
+        Insert: {
+          course_name: string
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          mentor_id?: string | null
+          name: string
+          start_date: string
+        }
+        Update: {
+          course_name?: string
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          mentor_id?: string | null
+          name?: string
+          start_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "batches_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "mentors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      certificates: {
+        Row: {
+          attendance_percentage: number | null
+          certificate_url: string | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          is_eligible: boolean | null
+          issue_date: string | null
+          issued_by: string | null
+          student_id: string
+          task_completion_percentage: number | null
+        }
+        Insert: {
+          attendance_percentage?: number | null
+          certificate_url?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_eligible?: boolean | null
+          issue_date?: string | null
+          issued_by?: string | null
+          student_id: string
+          task_completion_percentage?: number | null
+        }
+        Update: {
+          attendance_percentage?: number | null
+          certificate_url?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_eligible?: boolean | null
+          issue_date?: string | null
+          issued_by?: string | null
+          student_id?: string
+          task_completion_percentage?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "certificates_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: true
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mentors: {
+        Row: {
+          created_at: string | null
+          experience_years: number | null
+          id: string
+          is_active: boolean | null
+          specialization: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          experience_years?: number | null
+          id?: string
+          is_active?: boolean | null
+          specialization?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          experience_years?: number | null
+          id?: string
+          is_active?: boolean | null
+          specialization?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          receiver_id: string
+          sender_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          receiver_id: string
+          sender_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          receiver_id?: string
+          sender_id?: string
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string | null
+          due_date: string | null
+          id: string
+          paid_amount: number | null
+          payment_method: string | null
+          receipt_url: string | null
+          status: Database["public"]["Enums"]["payment_status"] | null
+          student_id: string
+          transaction_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          due_date?: string | null
+          id?: string
+          paid_amount?: number | null
+          payment_method?: string | null
+          receipt_url?: string | null
+          status?: Database["public"]["Enums"]["payment_status"] | null
+          student_id: string
+          transaction_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          due_date?: string | null
+          id?: string
+          paid_amount?: number | null
+          payment_method?: string | null
+          receipt_url?: string | null
+          status?: Database["public"]["Enums"]["payment_status"] | null
+          student_id?: string
+          transaction_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          email: string
+          full_name: string
+          id: string
+          phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email: string
+          full_name: string
+          id: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      recordings: {
+        Row: {
+          batch_id: string
+          created_at: string | null
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          is_active: boolean | null
+          recorded_date: string | null
+          subject: string | null
+          title: string
+          uploaded_by: string | null
+          video_url: string
+        }
+        Insert: {
+          batch_id: string
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_active?: boolean | null
+          recorded_date?: string | null
+          subject?: string | null
+          title: string
+          uploaded_by?: string | null
+          video_url: string
+        }
+        Update: {
+          batch_id?: string
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_active?: boolean | null
+          recorded_date?: string | null
+          subject?: string | null
+          title?: string
+          uploaded_by?: string | null
+          video_url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recordings_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      students: {
+        Row: {
+          batch_id: string | null
+          created_at: string | null
+          enrollment_date: string | null
+          id: string
+          is_active: boolean | null
+          parent_id: string | null
+          student_id: string
+          user_id: string
+        }
+        Insert: {
+          batch_id?: string | null
+          created_at?: string | null
+          enrollment_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          parent_id?: string | null
+          student_id: string
+          user_id: string
+        }
+        Update: {
+          batch_id?: string | null
+          created_at?: string | null
+          enrollment_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          parent_id?: string | null
+          student_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "students_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      task_submissions: {
+        Row: {
+          created_at: string | null
+          feedback: string | null
+          id: string
+          marks: number | null
+          reviewed_at: string | null
+          status: Database["public"]["Enums"]["task_status"] | null
+          student_id: string
+          submission_url: string | null
+          submitted_at: string | null
+          task_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          feedback?: string | null
+          id?: string
+          marks?: number | null
+          reviewed_at?: string | null
+          status?: Database["public"]["Enums"]["task_status"] | null
+          student_id: string
+          submission_url?: string | null
+          submitted_at?: string | null
+          task_id: string
+        }
+        Update: {
+          created_at?: string | null
+          feedback?: string | null
+          id?: string
+          marks?: number | null
+          reviewed_at?: string | null
+          status?: Database["public"]["Enums"]["task_status"] | null
+          student_id?: string
+          submission_url?: string | null
+          submitted_at?: string | null
+          task_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_submissions_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "task_submissions_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          batch_id: string
+          created_at: string | null
+          deadline: string
+          description: string | null
+          file_url: string | null
+          id: string
+          mentor_id: string
+          title: string
+        }
+        Insert: {
+          batch_id: string
+          created_at?: string | null
+          deadline: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          mentor_id: string
+          title: string
+        }
+        Update: {
+          batch_id?: string
+          created_at?: string | null
+          deadline?: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          mentor_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "mentors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "student" | "mentor" | "parent"
+      payment_status: "pending" | "paid" | "overdue" | "partial"
+      task_status:
+        | "pending"
+        | "submitted"
+        | "reviewed"
+        | "approved"
+        | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +646,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "student", "mentor", "parent"],
+      payment_status: ["pending", "paid", "overdue", "partial"],
+      task_status: ["pending", "submitted", "reviewed", "approved", "rejected"],
+    },
   },
 } as const
