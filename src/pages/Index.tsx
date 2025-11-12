@@ -1,34 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Users, BookOpen, TrendingUp, Shield } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { user, userRole, loading } = useAuth();
-
-  useEffect(() => {
-    if (!loading && user && userRole) {
-      if (userRole === 'admin') {
-        navigate('/admin');
-      } else if (userRole === 'student') {
-        navigate('/student');
-      } else if (userRole === 'mentor') {
-        navigate('/mentor');
-      } else if (userRole === 'parent') {
-        navigate('/parent');
-      }
-    }
-  }, [user, userRole, loading, navigate]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen">
